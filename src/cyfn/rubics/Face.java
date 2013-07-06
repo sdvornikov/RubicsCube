@@ -18,6 +18,10 @@ class Face {
 				
 	}
 	
+	public Piece getPieceAt(int x, int y) {
+		return facePieces[x][y];
+	}
+	
 	public void setAdjacentPieces(Piece[][][] pieces) {
 		// allow only once ?
 		for(int i=0;i<adgacentPieces.length;i++) {
