@@ -1,10 +1,13 @@
 package cyfn.rubics;
 
 public class Piece {
-	// TODO
-	/*
-	   + colour
-		constructor(colour)
-		getColour()
-	 */
+	private String color;
+	
+	public Piece(String color) {
+		this.color=color;
+	}
+	
+	public String getColor() {
+		return color;
+	}
 }
