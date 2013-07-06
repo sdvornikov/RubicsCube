@@ -30,6 +30,15 @@ class Face {
 			}
 		}
 	}
+	public String[][] getPicesColor() {
+		String[][] result = new String[dimension][dimension];
+		for(int i=0;i<dimension;i++) {
+			for(int j=0;j<dimension;j++) {
+				result[i][j] = facePieces[i][j].getColor();
+			}
+		}
+		return result;
+	}
 	
 	public void turn(Direction dir, int depth) {
 		if(depth < 0 || depth > dimension/2 - 1) 

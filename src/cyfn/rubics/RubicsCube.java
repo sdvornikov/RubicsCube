@@ -20,7 +20,6 @@ public class RubicsCube {
 		faces.get(side).turn(dir, depth);
 	}
 	public String[][] getSidePicesColor(Side side) {
-		// TODO return string array
-		return null;
+		return faces.get(side).getPicesColor();
 	}
 }
