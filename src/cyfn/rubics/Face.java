@@ -3,12 +3,12 @@ package cyfn.rubics;
 class Face {
 	private final int dimension;
 	private Piece[][] facePieces;
-	private Piece[][][] adgacentPieces;		//[depth][adjacent side][piece]. Starts from [0][0] facePiece and continues clockwise
+	private Piece[][][] adjacentPieces;		//[depth][adjacent side][piece]. Starts from [0][0] facePiece and continues clockwise
 	
 	Face(int dimension, String color) {
 		this.dimension = dimension;
 		facePieces = new Piece[this.dimension][this.dimension];
-		adgacentPieces = new Piece[(int)(this.dimension/2)][4][this.dimension];
+		adjacentPieces = new Piece[(int)(this.dimension/2)][4][this.dimension];
 		
 		for(int i=0;i<this.dimension;i++) {
 			for(int j=0;j<this.dimension;j++) {
@@ -24,12 +24,12 @@ class Face {
 	
 	public void setAdjacentPieces(Piece[][][] pieces) {
 		// allow only once ?
-		for(int i=0;i<adgacentPieces.length;i++) {
-			for(int j=0;j<adgacentPieces[0].length;j++) {
-				for(int k=0;k<adgacentPieces[0][0].length;k++) {
+		for(int i=0;i<adjacentPieces.length;i++) {
+			for(int j=0;j<adjacentPieces[0].length;j++) {
+				for(int k=0;k<adjacentPieces[0][0].length;k++) {
 					if (pieces[i][j][k] == null)
 						throw new NullPointerException("Cannot use null as adjacent piece");
-					adgacentPieces[i][j][k] = pieces[i][j][k];
+					adjacentPieces[i][j][k] = pieces[i][j][k];
 				}
 			}
 		}
@@ -61,22 +61,58 @@ class Face {
 			turnAdjacentPiecesCCW(depth);
 	}
 	
-	// to transpose a face:
-	/*
-	for n = 0 to N - 2
-		    for m = n + 1 to N - 1
-		        swap A(n,m) with A(m,n)
-	*/
 	private void turnFacePiecesCW() {
-		// TODO implement
+		for(int i=0;i<=dimension-2;i++) {
+			for(int j=i+1;j<=dimension-1;j++) {
+				String temp = facePieces[i][j].getColor();
+				facePieces[i][j].setColor(facePieces[j][i].getColor());
+				facePieces[j][i].setColor(temp);
+			}
+		}
+		
+		// !!! Works only for 3x3 TODO
+		for(int i=0;i<dimension;i++) {
+			String temp = facePieces[i][0].getColor();
+			facePieces[i][0].setColor(facePieces[i][2].getColor());
+			facePieces[i][2].setColor(temp);
+		}
 	}
 	private void turnFacePiecesCCW() {
 		// TODO implement		
 	}
 	private void turnAdjacentPiecesCW(int depth) {
-		// TODO implement
+		//store 4-th side
+		String[] tempRow = new String[dimension];
+		for(int i=0;i<dimension;i++) {
+			tempRow[i] = adjacentPieces[depth][3][i].getColor();
+		}
+		//rotate colors
+		for(int i = 3;i>0;i--) {
+			for(int j=0;j<dimension;j++) {
+				adjacentPieces[depth][i][j].setColor(adjacentPieces[depth][i-1][j].getColor());
+			}
+		}
+		//restore 4-th side onto 1-th
+		for(int i=0;i<dimension;i++) {
+			 adjacentPieces[depth][0][i].setColor(tempRow[i]);
+		}		
+		
 	}
 	private void turnAdjacentPiecesCCW(int depth) {
-		// TODO implement
+		//store 4-th side
+		String[] tempRow = new String[dimension];
+		for(int i=0;i<dimension;i++) {
+			tempRow[i] = adjacentPieces[depth][0][i].getColor();
+		}
+		//rotate colors
+		for(int i = 0;i<3;i++) {
+			for(int j=0;j<dimension;j++) {
+				adjacentPieces[depth][i][j].setColor(adjacentPieces[depth][i+1][j].getColor());
+			}
+		}
+		//restore 4-th side onto 1-th
+		for(int i=0;i<dimension;i++) {
+			 adjacentPieces[depth][3][i].setColor(tempRow[i]);
+		}	
 	}	
 }

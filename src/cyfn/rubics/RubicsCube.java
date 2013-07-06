@@ -57,12 +57,12 @@ public class RubicsCube {
 							break;
 						case 2:
 							for(int k = 0; k<dimension;k++) { 
-								adjacentPiecesArray[0][adjSideCount][k] = faces.get(adjSide).getPieceAt(2, k);
+								adjacentPiecesArray[0][adjSideCount][dimension-k-1] = faces.get(adjSide).getPieceAt(2, k);
 							}
 							break;
 						case 3:
 							for(int k = 0; k<dimension;k++) { 
-								adjacentPiecesArray[0][adjSideCount][k] = faces.get(adjSide).getPieceAt(k, 0);
+								adjacentPiecesArray[0][adjSideCount][dimension-k-1] = faces.get(adjSide).getPieceAt(k, 0);
 							}
 							
 						}
@@ -77,6 +77,9 @@ public class RubicsCube {
 	
 	public void turnFace(Direction dir,Side side,int depth) {
 		faces.get(side).turn(dir, depth);
+	}
+	public void turnFace(Direction dir,Side side) {
+		turnFace(dir,side, 0);
 	}
 	public String[][] getSidePicesColor(Side side) {
 		return faces.get(side).getPicesColor();
