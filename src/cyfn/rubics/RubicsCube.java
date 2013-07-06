@@ -1,5 +1,6 @@
 package cyfn.rubics;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class RubicsCube {
@@ -9,6 +10,9 @@ public class RubicsCube {
 	
 	public RubicsCube(int dimension) {
 		this.dimension = dimension;
+		
+		faces = new HashMap<Side, Face>();
+		
 		// construct faces with default color
 		for (Side side : Side.values()) {
 			faces.put(side, new Face(this.dimension, side.getDefaultColor()));
