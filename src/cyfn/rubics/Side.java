@@ -1,6 +1,6 @@
 package cyfn.rubics;
 
-public enum Side {TOP("white"), BOTTOM("yellow"), FRONT("red"), REAR("orange"), RIGHT("blue"), LEFT("green");
+public enum Side {UP("white"), DOWN("yellow"), FRONT("red"), BACK("orange"), RIGHT("blue"), LEFT("green");
 	private final String defaultColor;
 	Side(String color) {
 		defaultColor=color;
