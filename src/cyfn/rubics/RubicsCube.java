@@ -1,11 +1,26 @@
 package cyfn.rubics;
 
+import java.util.Map;
+
 public class RubicsCube {
 
-	// TODO constructors for (3x3,4x4,5x5,2x2) Construct faces, build adjacent arrays
-	// faces Map(top,bottom,front,rear,right,left)
-	// turnFace(dir,turns,side,depth) - transform the side and modify rows on adjacent faces. 
-	// 		If depth>dim/2-1 Exception. depth=0 is the outermost face
-	// Piece[][] getFacePieces(side)
+	private Map<Side, Face> faces;
+	private final int dimension;
 	
+	public RubicsCube(int dimension) {
+		this.dimension = dimension;
+		// construct faces with default color
+		for (Side side : Side.values()) {
+			faces.put(side, new Face(this.dimension, side.getDefaultColor()));
+		}
+		// TODO build adjacent arrays
+	}
+	
+	public void turnFace(Direction dir,Side side,int depth) {
+		faces.get(side).turn(dir, depth);
+	}
+	public String[][] getSidePicesColor(Side side) {
+		// TODO return string array
+		return null;
+	}
 }

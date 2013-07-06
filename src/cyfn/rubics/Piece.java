@@ -1,9 +1,9 @@
 package cyfn.rubics;
 
-public class Piece {
+class Piece {
 	private String color;
 	
-	public Piece(String color) {
+	Piece(String color) {
 		this.color=color;
 	}
 	
