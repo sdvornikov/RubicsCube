@@ -1,6 +1,7 @@
 package cyfn.rubics;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 public class RubicsCube {
@@ -18,10 +19,7 @@ public class RubicsCube {
 	
 	private Map<Side, Face> faces;
 	private final int dimension;
-	
-	private Side lastTurnedSide;
-	private Direction lastTurnedDirection;
-	private int lastTurnedDepth;
+	private LinkedList<TurnInfo> turnLog = new LinkedList<>();
 	
 	public RubicsCube(int dimension) {
 		this.dimension = dimension;
@@ -77,9 +75,7 @@ public class RubicsCube {
 	
 	public void turnFace(Direction dir,Side side,int depth) {
 		faces.get(side).turn(dir, depth);
-		lastTurnedDirection = dir;
-		lastTurnedSide = side;
-		lastTurnedDepth = depth;
+		turnLog.add(new TurnInfo(side, dir, depth));
 	}
 	public void turnFace(Direction dir,Side side) {
 		turnFace(dir,side, 0);
@@ -100,19 +96,17 @@ public class RubicsCube {
 		return true;
 	}
 	public void undoLastTurn() {
-		if (lastTurnedDirection == null || lastTurnedSide == null) return;
-		if (lastTurnedDirection == Direction.CLOCKWISE) {
-			turnFace(Direction.COUNTERCLOCKWISE, lastTurnedSide, lastTurnedDepth);
-		} else if (lastTurnedDirection == Direction.COUNTERCLOCKWISE) {
-			turnFace(Direction.CLOCKWISE, lastTurnedSide, lastTurnedDepth);
+		TurnInfo lastTurn = turnLog.pollLast();
+		if (lastTurn == null) return;
+		
+		if (lastTurn.turnedDirection == Direction.CLOCKWISE) {
+			turnFace(Direction.COUNTERCLOCKWISE, lastTurn.turnedSide, lastTurn.turnedDepth);
+		} else if (lastTurn.turnedDirection == Direction.COUNTERCLOCKWISE) {
+			turnFace(Direction.CLOCKWISE, lastTurn.turnedSide, lastTurn.turnedDepth);
 		}
-		clearUndoData();
+		turnLog.pollLast();
 	}
-	private void clearUndoData() {
-		lastTurnedDirection = null;
-		lastTurnedSide = null;
-		lastTurnedDepth = 0;
-	}
+
 	public void scramble() {
 		int numberOfTurns = (int)(Math.random()*10*dimension) + 10*dimension;
 		for (int i=0;i<numberOfTurns;i++) {
@@ -120,6 +114,34 @@ public class RubicsCube {
 					Side.values()[(int)(Math.random()*Side.values().length)], 
 					(int)(Math.random()*(int)(dimension/2)));
 		}
-		clearUndoData();
+	}
+	
+	public String getTurnLog() {
+		String result = "";
+		for(TurnInfo turn : turnLog) {
+			result+=turn + " ";
+		}
+		return result;
+	}
+}
+
+class TurnInfo {
+	Side turnedSide;
+	Direction turnedDirection;
+	int turnedDepth;
+	
+	public TurnInfo(Side side, Direction dir, int depth) {
+		turnedDepth = depth;
+		turnedDirection = dir;
+		turnedSide = side;
+	}
+	
+	public String toString() {
+		String result = turnedSide.toString().substring(0, 1);
+		if(turnedDirection == Direction.COUNTERCLOCKWISE)
+			result+="i";
+		if(turnedDepth==1) 
+			result = result.toLowerCase();
+		return result;
 	}
 }
