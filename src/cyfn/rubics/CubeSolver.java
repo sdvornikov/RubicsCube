@@ -40,7 +40,7 @@ public class CubeSolver {
 				turnCube(action, side);
 				boolean result = solve(side, depth+1);
 				if(result == false)
-					undo();
+					undo(action);
 				else
 					return true;
 			}
@@ -71,10 +71,10 @@ public class CubeSolver {
 		}
 	}
 	
-	private void undo() {
+	private void undo(Action action) {
 		turnLog.remove(turnLog.size()-1);
 		cube.undoLastTurn();
+		if (action == Action.HALFTURN)
+			cube.undoLastTurn();
 	}
-	
-	
 }
