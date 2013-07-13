@@ -106,7 +106,20 @@ public class RubicsCube {
 		} else if (lastTurnedDirection == Direction.COUNTERCLOCKWISE) {
 			turnFace(Direction.CLOCKWISE, lastTurnedSide, lastTurnedDepth);
 		}
+		clearUndoData();
+	}
+	private void clearUndoData() {
 		lastTurnedDirection = null;
 		lastTurnedSide = null;
+		lastTurnedDepth = 0;
+	}
+	public void scramble() {
+		int numberOfTurns = (int)(Math.random()*10*dimension) + 10*dimension;
+		for (int i=0;i<numberOfTurns;i++) {
+			turnFace(Direction.values()[(int)(Math.random()*Direction.values().length)], 
+					Side.values()[(int)(Math.random()*Side.values().length)], 
+					(int)(Math.random()*(int)(dimension/2)));
+		}
+		clearUndoData();
 	}
 }
