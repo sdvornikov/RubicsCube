@@ -5,7 +5,8 @@ import cyfn.rubics.Side;
 public class RubicsCubeTest {
 
 	public static void main(String[] args) {
-		test2x2Cube();
+		//test2x2Cube();
+		test3x3Cube();
 	}
 	
 	static void test3x3Cube() {
@@ -13,11 +14,11 @@ public class RubicsCubeTest {
 		displayCube(cube3x3);
 		cube3x3.turnFace(Direction.CLOCKWISE, Side.UP);
 		cube3x3.turnFace(Direction.CLOCKWISE, Side.RIGHT);
-		cube3x3.turnFace(Direction.CLOCKWISE, Side.UP);
 		cube3x3.turnFace(Direction.CLOCKWISE, Side.FRONT);
-		cube3x3.turnFace(Direction.CLOCKWISE, Side.BACK);
-		cube3x3.turnFace(Direction.CLOCKWISE, Side.DOWN);
-		System.out.println("U R U F B D");
+		cube3x3.turnFace(Direction.COUNTERCLOCKWISE, Side.FRONT);
+		cube3x3.turnFace(Direction.COUNTERCLOCKWISE, Side.RIGHT);
+		cube3x3.turnFace(Direction.COUNTERCLOCKWISE, Side.UP);
+		System.out.println("U R F Fi Ri Ui");
 		displayCube(cube3x3);
 	}
 	

@@ -49,10 +49,7 @@ class Face {
 			throw new IllegalArgumentException(String.format("Depth %i is illegal for %ix%i RubicsCube", depth,dimension,dimension));
 		
 		if(depth == 0) {
-			if(dir == Direction.CLOCKWISE)
-				turnFacePiecesCW();
-			else if(dir == Direction.COUNTERCLOCKWISE)
-				turnFacePiecesCCW();
+			turnFacePieces(dir);
 		}
 		
 		if(dir == Direction.CLOCKWISE)
@@ -61,8 +58,7 @@ class Face {
 			turnAdjacentPiecesCCW(depth);
 	}
 	
-	private void turnFacePiecesCW() {
-		// transpose face pieces
+	private void transposeFacePieces() {
 		for(int i=0;i<=dimension-2;i++) {
 			for(int j=i+1;j<=dimension-1;j++) {
 				String temp = facePieces[i][j].getColor();
@@ -70,19 +66,28 @@ class Face {
 				facePieces[j][i].setColor(temp);
 			}
 		}
+	}
+	
+	private void swapFacePieces(int x1,int y1,int x2,int y2) {
+		String temp = facePieces[x1][y1].getColor();
+		facePieces[x1][y1].setColor(facePieces[x2][y2].getColor());
+		facePieces[x2][y2].setColor(temp);
+	}
+	
+	private void turnFacePieces(Direction dir) {
+		transposeFacePieces();
 		
 		// swap opposite rows
 		for(int pieceIndex=0;pieceIndex<dimension;pieceIndex++) {
 			for (int rowIndex = 0;rowIndex<(int)(dimension/2);rowIndex++) {
-				String temp = facePieces[pieceIndex][rowIndex].getColor();
-				facePieces[pieceIndex][rowIndex].setColor(facePieces[pieceIndex][dimension-rowIndex-1].getColor());
-				facePieces[pieceIndex][dimension-rowIndex-1].setColor(temp);
+				if(dir == Direction.CLOCKWISE)
+					swapFacePieces(pieceIndex, rowIndex, pieceIndex, dimension-rowIndex-1);
+				else if(dir == Direction.COUNTERCLOCKWISE)
+					swapFacePieces(rowIndex, pieceIndex, dimension-rowIndex-1, pieceIndex);
 			}
 		}
 	}
-	private void turnFacePiecesCCW() {
-		// TODO implement		
-	}
+
 	private void turnAdjacentPiecesCW(int depth) {
 		//store 4-th side
 		String[] tempRow = new String[dimension];
