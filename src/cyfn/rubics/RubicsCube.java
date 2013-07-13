@@ -80,4 +80,16 @@ public class RubicsCube {
 	public String[][] getSidePicesColor(Side side) {
 		return faces.get(side).getPicesColor();
 	}
+	public boolean isSolved() {
+		for (Side side: faces.keySet()) {
+			String[][] pieceColor = getSidePicesColor(side);
+			String sideColor = pieceColor[0][0];
+			for(int i=0;i<dimension;i++)
+				for(int j=0;j<dimension;j++)
+					if(sideColor != pieceColor[i][j])
+						return false;
+		}
+		
+		return true;
+	}
 }

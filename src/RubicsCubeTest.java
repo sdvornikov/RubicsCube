@@ -20,6 +20,7 @@ public class RubicsCubeTest {
 		cube3x3.turnFace(Direction.COUNTERCLOCKWISE, Side.UP);
 		System.out.println("U R F Fi Ri Ui");
 		displayCube(cube3x3);
+		System.out.println("Solved = "+cube3x3.isSolved());
 	}
 	
 	static void test2x2Cube() {
