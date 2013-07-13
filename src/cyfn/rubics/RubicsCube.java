@@ -19,6 +19,10 @@ public class RubicsCube {
 	private Map<Side, Face> faces;
 	private final int dimension;
 	
+	private Side lastTurnedSide;
+	private Direction lastTurnedDirection;
+	private int lastTurnedDepth;
+	
 	public RubicsCube(int dimension) {
 		this.dimension = dimension;
 		
@@ -73,6 +77,9 @@ public class RubicsCube {
 	
 	public void turnFace(Direction dir,Side side,int depth) {
 		faces.get(side).turn(dir, depth);
+		lastTurnedDirection = dir;
+		lastTurnedSide = side;
+		lastTurnedDepth = depth;
 	}
 	public void turnFace(Direction dir,Side side) {
 		turnFace(dir,side, 0);
@@ -91,5 +98,15 @@ public class RubicsCube {
 		}
 		
 		return true;
+	}
+	public void undoLastTurn() {
+		if (lastTurnedDirection == null || lastTurnedSide == null) return;
+		if (lastTurnedDirection == Direction.CLOCKWISE) {
+			turnFace(Direction.COUNTERCLOCKWISE, lastTurnedSide, lastTurnedDepth);
+		} else if (lastTurnedDirection == Direction.COUNTERCLOCKWISE) {
+			turnFace(Direction.CLOCKWISE, lastTurnedSide, lastTurnedDepth);
+		}
+		lastTurnedDirection = null;
+		lastTurnedSide = null;
 	}
 }
