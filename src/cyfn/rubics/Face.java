@@ -62,6 +62,7 @@ class Face {
 	}
 	
 	private void turnFacePiecesCW() {
+		// transpose face pieces
 		for(int i=0;i<=dimension-2;i++) {
 			for(int j=i+1;j<=dimension-1;j++) {
 				String temp = facePieces[i][j].getColor();
@@ -70,11 +71,13 @@ class Face {
 			}
 		}
 		
-		// !!! Works only for 3x3 TODO
-		for(int i=0;i<dimension;i++) {
-			String temp = facePieces[i][0].getColor();
-			facePieces[i][0].setColor(facePieces[i][2].getColor());
-			facePieces[i][2].setColor(temp);
+		// swap opposite rows
+		for(int pieceIndex=0;pieceIndex<dimension;pieceIndex++) {
+			for (int rowIndex = 0;rowIndex<(int)(dimension/2);rowIndex++) {
+				String temp = facePieces[pieceIndex][rowIndex].getColor();
+				facePieces[pieceIndex][rowIndex].setColor(facePieces[pieceIndex][dimension-rowIndex-1].getColor());
+				facePieces[pieceIndex][dimension-rowIndex-1].setColor(temp);
+			}
 		}
 	}
 	private void turnFacePiecesCCW() {
