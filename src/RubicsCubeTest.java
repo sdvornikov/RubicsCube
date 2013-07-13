@@ -20,6 +20,7 @@ public class RubicsCubeTest {
 		solver.run();
 		displayCube(cube);
 		System.out.println("Solved = "+cube.isSolved());
+		System.out.println(solver.getSolution());
 	}
 	
 	static void test3x3Cube() {
