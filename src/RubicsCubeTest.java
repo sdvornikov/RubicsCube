@@ -5,6 +5,10 @@ import cyfn.rubics.Side;
 public class RubicsCubeTest {
 
 	public static void main(String[] args) {
+		test4x4Cube();
+	}
+	
+	static void test3x3Cube() {
 		RubicsCube cube3x3 = new RubicsCube(3);
 		displayCube(cube3x3);
 		cube3x3.turnFace(Direction.CLOCKWISE, Side.UP);
@@ -13,8 +17,29 @@ public class RubicsCubeTest {
 		cube3x3.turnFace(Direction.CLOCKWISE, Side.FRONT);
 		cube3x3.turnFace(Direction.CLOCKWISE, Side.BACK);
 		cube3x3.turnFace(Direction.CLOCKWISE, Side.DOWN);
-		System.out.println("cube3x3.turnFace(Direction.COUNTERCLOCKWISE, Side.RIGHT)");
+		System.out.println("U R U F B D");
 		displayCube(cube3x3);
+	}
+	
+	static void test2x2Cube() {
+		RubicsCube cube2x2 = new RubicsCube(2);
+		displayCube(cube2x2);
+		cube2x2.turnFace(Direction.CLOCKWISE, Side.UP);
+		cube2x2.turnFace(Direction.CLOCKWISE, Side.RIGHT);
+		cube2x2.turnFace(Direction.CLOCKWISE, Side.UP);
+		cube2x2.turnFace(Direction.CLOCKWISE, Side.FRONT);
+		cube2x2.turnFace(Direction.CLOCKWISE, Side.BACK);
+		cube2x2.turnFace(Direction.CLOCKWISE, Side.DOWN);
+		System.out.println("U R U F B D");
+		displayCube(cube2x2);
+	}
+	
+	static void test4x4Cube() {
+		RubicsCube cube4x4 = new RubicsCube(4);
+		displayCube(cube4x4);
+		cube4x4.turnFace(Direction.CLOCKWISE, Side.UP, 1);
+		System.out.println("u");
+		displayCube(cube4x4);
 	}
 	
 	static void printArray(String[][] array) {

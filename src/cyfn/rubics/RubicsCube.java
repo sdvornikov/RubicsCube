@@ -29,46 +29,42 @@ public class RubicsCube {
 			faces.put(side, new Face(this.dimension, side.getDefaultColor()));
 		}
 		
-		
-		// TODO WORKS FOR 3x3 ONLY (one layer depth)
-		
-		
 		// Pick a side to build an array
 		for (Side side : faces.keySet()) {
-			
 			Piece adjacentPiecesArray[][][] = new Piece[(int)(this.dimension/2)][4][this.dimension];
-			int adjSideCount = 0;
-			// Take an ordered array of adjacent sides
-			for (Side adjSide : adjacentFaces.get(side)) {
-				// some crazy magic :)
-				Side magicSides[] = adjacentFaces.get(adjSide);
-				for (int i = 0; i<magicSides.length;i++) {
-					if(magicSides[i] == side) {
-						switch (i) {
-						case 0:
-							for(int k = 0; k<dimension;k++) { 
-								adjacentPiecesArray[0][adjSideCount][k] = faces.get(adjSide).getPieceAt(0, k);
+			for (int depthIndex=0;depthIndex<(int)(this.dimension/2);depthIndex++) {
+				int adjSideCount = 0;
+				// Take an ordered array of adjacent sides
+				for (Side adjSide : adjacentFaces.get(side)) {
+					// some crazy magic :)
+					Side magicSides[] = adjacentFaces.get(adjSide);
+					for (int i = 0; i<magicSides.length;i++) {
+						if(magicSides[i] == side) {
+							switch (i) {
+							case 0:
+								for(int k = 0; k<dimension;k++) { 
+									adjacentPiecesArray[depthIndex][adjSideCount][k] = faces.get(adjSide).getPieceAt(depthIndex, k);
+								}
+								break;
+							case 1:
+								for(int k = 0; k<dimension;k++) { 
+									adjacentPiecesArray[depthIndex][adjSideCount][k] = faces.get(adjSide).getPieceAt(k, dimension-depthIndex-1);
+								}
+								break;
+							case 2:
+								for(int k = 0; k<dimension;k++) { 
+									adjacentPiecesArray[depthIndex][adjSideCount][dimension-k-1] = faces.get(adjSide).getPieceAt(dimension-depthIndex-1, k);
+								}
+								break;
+							case 3:
+								for(int k = 0; k<dimension;k++) { 
+									adjacentPiecesArray[depthIndex][adjSideCount][dimension-k-1] = faces.get(adjSide).getPieceAt(k, depthIndex);
+								}
 							}
-							break;
-						case 1:
-							for(int k = 0; k<dimension;k++) { 
-								adjacentPiecesArray[0][adjSideCount][k] = faces.get(adjSide).getPieceAt(k, 2);
-							}
-							break;
-						case 2:
-							for(int k = 0; k<dimension;k++) { 
-								adjacentPiecesArray[0][adjSideCount][dimension-k-1] = faces.get(adjSide).getPieceAt(2, k);
-							}
-							break;
-						case 3:
-							for(int k = 0; k<dimension;k++) { 
-								adjacentPiecesArray[0][adjSideCount][dimension-k-1] = faces.get(adjSide).getPieceAt(k, 0);
-							}
-							
 						}
 					}
+					adjSideCount++;
 				}
-				adjSideCount++;
 			}
 			faces.get(side).setAdjacentPieces(adjacentPiecesArray);
 		}
