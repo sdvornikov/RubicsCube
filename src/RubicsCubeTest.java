@@ -14,13 +14,24 @@ public class RubicsCubeTest {
 	static void test2x2Solver() {
 		RubicsCube cube = new RubicsCube(2);
 		cube.scramble();
+		/*
+		cube.turnFace(Direction.CLOCKWISE, Side.UP);
+		cube.turnFace(Direction.COUNTERCLOCKWISE, Side.RIGHT);
+		cube.turnFace(Direction.COUNTERCLOCKWISE, Side.UP);
+		cube.turnFace(Direction.COUNTERCLOCKWISE, Side.FRONT);
+		cube.turnFace(Direction.COUNTERCLOCKWISE, Side.BACK);
+		cube.turnFace(Direction.CLOCKWISE, Side.DOWN);
+		*/
+		
+		System.out.println(cube.getTurnLog());
 		displayCube(cube);
 		System.out.println("Solved = "+cube.isSolved());
 		CubeSolver solver = new CubeSolver(cube, 9);
 		solver.run();
 		displayCube(cube);
 		System.out.println("Solved = "+cube.isSolved());
-		System.out.println(solver.getSolution());
+		System.out.println("Solver Log: " + solver.getSolution());
+		System.out.println("Cube Log: " + cube.getTurnLog());
 	}
 	
 	static void test3x3Cube() {
@@ -45,11 +56,11 @@ public class RubicsCubeTest {
 		displayCube(cube2x2);
 		cube2x2.turnFace(Direction.CLOCKWISE, Side.UP);
 		cube2x2.turnFace(Direction.CLOCKWISE, Side.RIGHT);
-		cube2x2.turnFace(Direction.CLOCKWISE, Side.UP);
-		cube2x2.turnFace(Direction.CLOCKWISE, Side.FRONT);
+		cube2x2.turnFace(Direction.COUNTERCLOCKWISE, Side.UP);
+		cube2x2.turnFace(Direction.COUNTERCLOCKWISE, Side.FRONT);
 		cube2x2.turnFace(Direction.CLOCKWISE, Side.BACK);
 		cube2x2.turnFace(Direction.CLOCKWISE, Side.DOWN);
-		System.out.println("U R U F B D");
+		System.out.println(cube2x2.getTurnLog());
 		displayCube(cube2x2);
 	}
 	
