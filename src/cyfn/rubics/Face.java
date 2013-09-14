@@ -69,9 +69,7 @@ class Face {
 	private void transposeFacePieces() {
 		for(int i=0;i<=dimension-2;i++) {
 			for(int j=i+1;j<=dimension-1;j++) {
-				String temp = facePieces[i][j].getColor();
-				facePieces[i][j].setColor(facePieces[j][i].getColor());
-				facePieces[j][i].setColor(temp);
+				swapFacePieces(i,j,j,i);
 			}
 		}
 	}
