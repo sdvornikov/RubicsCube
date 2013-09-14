@@ -36,17 +36,21 @@ public class RubicsCubeTest {
 	
 	static void test3x3Cube() {
 		RubicsCube cube3x3 = new RubicsCube(3);
-		displayCube(cube3x3);
-		/*
-		cube3x3.turnFace(Direction.CLOCKWISE, Side.UP);
-		cube3x3.turnFace(Direction.CLOCKWISE, Side.RIGHT);
-		cube3x3.turnFace(Direction.CLOCKWISE, Side.FRONT);
-		cube3x3.turnFace(Direction.COUNTERCLOCKWISE, Side.FRONT);
-		cube3x3.turnFace(Direction.COUNTERCLOCKWISE, Side.RIGHT);
-		cube3x3.turnFace(Direction.COUNTERCLOCKWISE, Side.UP);
-		System.out.println("U R F Fi Ri Ui");
-		*/
 		cube3x3.scramble();
+		displayCube(cube3x3);
+		
+		cube3x3.turnFace(Direction.HALFTURN, Side.UP);
+		displayCube(cube3x3);
+		cube3x3.undoLastTurn();
+		//displayCube(cube3x3);	
+		//cube3x3.turnFace(Direction.CLOCKWISE, Side.RIGHT);
+		//cube3x3.turnFace(Direction.CLOCKWISE, Side.FRONT);
+		//cube3x3.turnFace(Direction.COUNTERCLOCKWISE, Side.FRONT);
+		//cube3x3.turnFace(Direction.COUNTERCLOCKWISE, Side.RIGHT);
+		//cube3x3.turnFace(Direction.COUNTERCLOCKWISE, Side.UP);
+		//System.out.println("U R F Fi Ri Ui");
+		
+		//
 		displayCube(cube3x3);
 		System.out.println("Solved = "+cube3x3.isSolved());
 	}

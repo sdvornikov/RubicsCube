@@ -66,15 +66,12 @@ public class CubeSolver {
 			cube.turnFace(Direction.COUNTERCLOCKWISE, side); 
 			break;
 		case HALFTURN: 
-			cube.turnFace(Direction.COUNTERCLOCKWISE, side);
-			cube.turnFace(Direction.COUNTERCLOCKWISE, side);
+			cube.turnFace(Direction.HALFTURN, side);
 		}
 	}
 	
 	private void undo(Action action) {
 		turnLog.remove(turnLog.size()-1);
 		cube.undoLastTurn();
-		if (action == Action.HALFTURN)
-			cube.undoLastTurn();
 	}
 }

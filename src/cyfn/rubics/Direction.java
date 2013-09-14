@@ -1,3 +1,3 @@
 package cyfn.rubics;
 
-public enum Direction {CLOCKWISE, COUNTERCLOCKWISE}
+public enum Direction {CLOCKWISE, COUNTERCLOCKWISE, HALFTURN}

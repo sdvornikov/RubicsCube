@@ -103,6 +103,8 @@ public class RubicsCube {
 			turnFace(Direction.COUNTERCLOCKWISE, lastTurn.turnedSide, lastTurn.turnedDepth);
 		} else if (lastTurn.turnedDirection == Direction.COUNTERCLOCKWISE) {
 			turnFace(Direction.CLOCKWISE, lastTurn.turnedSide, lastTurn.turnedDepth);
+		} else if (lastTurn.turnedDirection == Direction.HALFTURN) {
+			turnFace(Direction.HALFTURN, lastTurn.turnedSide, lastTurn.turnedDepth);
 		}
 		turnLog.pollLast();
 	}
@@ -140,6 +142,8 @@ class TurnInfo {
 		String result = turnedSide.toString().substring(0, 1);
 		if(turnedDirection == Direction.COUNTERCLOCKWISE)
 			result+="i";
+		if(turnedDirection == Direction.HALFTURN)
+			result+="2";
 		if(turnedDepth==1) 
 			result = result.toLowerCase();
 		return result;

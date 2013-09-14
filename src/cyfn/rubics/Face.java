@@ -60,6 +60,10 @@ class Face {
 			turnAdjacentPiecesCW(depth);
 		else if(dir == Direction.COUNTERCLOCKWISE)
 			turnAdjacentPiecesCCW(depth);
+		else if(dir == Direction.HALFTURN) {
+			turnAdjacentPiecesCCW(depth);
+			turnAdjacentPiecesCCW(depth);
+		}
 	}
 	
 	private void transposeFacePieces() {
@@ -78,18 +82,31 @@ class Face {
 		facePieces[x2][y2].setColor(temp);
 	}
 	
-	private void turnFacePieces(Direction dir) {
-		transposeFacePieces();
+	private void swapRowsVertically() {
+		for(int pieceIndex=0;pieceIndex<dimension;pieceIndex++) 
+			for (int rowIndex = 0;rowIndex<(int)(dimension/2);rowIndex++) 
+				swapFacePieces(pieceIndex, rowIndex, pieceIndex, dimension-rowIndex-1);
+	}
+	
+	private void swapRowsHorizontally() {
+		for(int pieceIndex=0;pieceIndex<dimension;pieceIndex++) 
+			for (int rowIndex = 0;rowIndex<(int)(dimension/2);rowIndex++) 
+				swapFacePieces(rowIndex, pieceIndex, dimension-rowIndex-1, pieceIndex);
+	}
 		
-		// swap opposite rows
-		for(int pieceIndex=0;pieceIndex<dimension;pieceIndex++) {
-			for (int rowIndex = 0;rowIndex<(int)(dimension/2);rowIndex++) {
-				if(dir == Direction.CLOCKWISE)
-					swapFacePieces(pieceIndex, rowIndex, pieceIndex, dimension-rowIndex-1);
-				else if(dir == Direction.COUNTERCLOCKWISE)
-					swapFacePieces(rowIndex, pieceIndex, dimension-rowIndex-1, pieceIndex);
-			}
+	private void turnFacePieces(Direction dir) {
+
+		if(dir == Direction.CLOCKWISE) {
+			transposeFacePieces();
+			swapRowsVertically();
+		} else if(dir == Direction.COUNTERCLOCKWISE) {
+			transposeFacePieces();
+			swapRowsHorizontally();
+		} else if(dir == Direction.HALFTURN) {
+			swapRowsVertically();
+			swapRowsHorizontally();
 		}
+		
 	}
 
 	private void turnAdjacentPiecesCW(int depth) {
