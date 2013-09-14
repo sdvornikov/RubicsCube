@@ -7,8 +7,8 @@ public class RubicsCubeTest {
 
 	public static void main(String[] args) {
 		//test2x2Cube();
-		//test3x3Cube();
-		test2x2Solver();
+		test3x3Cube();
+		//test2x2Solver();
 	}
 	
 	static void test2x2Solver() {
@@ -40,14 +40,11 @@ public class RubicsCubeTest {
 		displayCube(cube3x3);
 		
 		cube3x3.turnFace(Direction.HALFTURN, Side.UP);
-		displayCube(cube3x3);
-		cube3x3.undoLastTurn();
-		//displayCube(cube3x3);	
-		//cube3x3.turnFace(Direction.CLOCKWISE, Side.RIGHT);
-		//cube3x3.turnFace(Direction.CLOCKWISE, Side.FRONT);
-		//cube3x3.turnFace(Direction.COUNTERCLOCKWISE, Side.FRONT);
-		//cube3x3.turnFace(Direction.COUNTERCLOCKWISE, Side.RIGHT);
-		//cube3x3.turnFace(Direction.COUNTERCLOCKWISE, Side.UP);
+		cube3x3.turnFace(Direction.CLOCKWISE, Side.RIGHT);
+		cube3x3.turnFace(Direction.CLOCKWISE, Side.FRONT);
+		cube3x3.turnFace(Direction.COUNTERCLOCKWISE, Side.FRONT);
+		cube3x3.turnFace(Direction.COUNTERCLOCKWISE, Side.RIGHT);
+		cube3x3.turnFace(Direction.COUNTERCLOCKWISE, Side.UP);
 		//System.out.println("U R F Fi Ri Ui");
 		
 		//
