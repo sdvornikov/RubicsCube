@@ -4,6 +4,7 @@ class Face {
 	private final int dimension;
 	private Piece[][] facePieces;
 	private Piece[][][] adjacentPieces;		//[depth][adjacent side][piece]. Starts from [0][0] facePiece and continues clockwise
+	private boolean isFaseInitialized = false;	// Prevents face from turning until adjacent pieces are set
 	
 	Face(int dimension, String color) {
 		this.dimension = dimension;
@@ -23,7 +24,7 @@ class Face {
 	}
 	
 	public void setAdjacentPieces(Piece[][][] pieces) {
-		// allow only once ?
+		if(isFaseInitialized) throw new IllegalStateException("Cannot set adjacent pieces more than once!");
 		for(int i=0;i<adjacentPieces.length;i++) {
 			for(int j=0;j<adjacentPieces[0].length;j++) {
 				for(int k=0;k<adjacentPieces[0][0].length;k++) {
@@ -33,6 +34,7 @@ class Face {
 				}
 			}
 		}
+		isFaseInitialized = true;
 	}
 	public String[][] getPicesColor() {
 		String[][] result = new String[dimension][dimension];
@@ -45,6 +47,8 @@ class Face {
 	}
 	
 	public void turn(Direction dir, int depth) {
+		if(!isFaseInitialized) throw new IllegalStateException("Cannot turn a face before adjacent pieces are set!");
+		
 		if(depth < 0 || depth > dimension/2 - 1) 
 			throw new IllegalArgumentException(String.format("Depth %i is illegal for %ix%i RubicsCube", depth,dimension,dimension));
 		
