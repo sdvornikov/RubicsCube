@@ -1,9 +1,7 @@
 package cyfn.rubics;
 
 import static org.junit.Assert.*;
-import junit.framework.Assert;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -55,8 +53,23 @@ public class RubicsCubeTest {
 
 	@Test
 	public void testTurnFaceDirectionSide() {
-		// TODO
-		fail("Not yet implemented");
+		// R2 D D Fi F2 F F F D2 R R Ri R
+		testCube.turnFace(Direction.HALFTURN, Side.RIGHT);
+		testCube.turnFace(Direction.CLOCKWISE, Side.DOWN);
+		testCube.turnFace(Direction.CLOCKWISE, Side.DOWN);
+		testCube.turnFace(Direction.COUNTERCLOCKWISE, Side.FRONT);
+		testCube.turnFace(Direction.HALFTURN, Side.FRONT);
+		testCube.turnFace(Direction.CLOCKWISE, Side.FRONT);
+		testCube.turnFace(Direction.CLOCKWISE, Side.FRONT);
+		testCube.turnFace(Direction.CLOCKWISE, Side.FRONT);
+		testCube.turnFace(Direction.HALFTURN, Side.DOWN);
+		testCube.turnFace(Direction.CLOCKWISE, Side.RIGHT);
+		testCube.turnFace(Direction.CLOCKWISE, Side.RIGHT);
+		testCube.turnFace(Direction.COUNTERCLOCKWISE, Side.RIGHT);
+		testCube.turnFace(Direction.CLOCKWISE, Side.RIGHT);
+		
+		assertTrue(testCube.isSolved());
+		
 	}
 
 	@Test(timeout=100)
