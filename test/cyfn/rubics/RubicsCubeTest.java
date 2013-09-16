@@ -115,7 +115,8 @@ public class RubicsCubeTest {
 	@Test
 	public void testPerformTurns() {
 		// Turn test
-		testCube.performTurns("R2 D D Fi F2 F F F D2 R R Ri R");
+		testCube.turnFace(Direction.HALFTURN, Side.RIGHT);
+		testCube.performTurns("D D Fi F2 F F F D2 R R Ri R");
 		assertTrue(testCube.isSolved());
 	}
 
