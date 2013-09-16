@@ -125,6 +125,19 @@ public class RubicsCube {
 		}
 		return result;
 	}
+	
+	public void performTurns(String turns) {
+		// TODO split a string into individual turns
+	}
+	
+	public void performTurns(String[] turns) {
+		// TODO construct an array of TurnInfo objects
+		// throw an rt exception if a turn cannot be parsed
+	}
+	
+	private void performTurns(TurnInfo[] turns) {
+		// TODO perform turns
+	}
 }
 
 class TurnInfo {

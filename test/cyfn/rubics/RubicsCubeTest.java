@@ -96,8 +96,27 @@ public class RubicsCubeTest {
 		testCube.turnFace(Direction.CLOCKWISE, Side.DOWN);
 		testCube.turnFace(Direction.COUNTERCLOCKWISE, Side.RIGHT);
 		testCube.turnFace(Direction.HALFTURN, Side.FRONT);
-		assertEquals("D Ri F2 ", testCube.getTurnLog());
-		
+		assertEquals("D Ri F2 ", testCube.getTurnLog());	
+	}
+	
+	@Test
+	public void testPerformTurnsWithBadInput() {
+		// Must throw an exception on bad input
+		try {
+			testCube.performTurns("R Ri Uo Ui");	// Uo is illegal
+			fail("Bad imput must result in IllegalArgumentException");
+			} catch(IllegalArgumentException e) {}
+		try {
+			testCube.performTurns("R Ri U 2 Ui");	// 2 is illegal
+			fail("Bad imput must result in IllegalArgumentException");
+			} catch(IllegalArgumentException e) {}
+	}
+	
+	@Test
+	public void testPerformTurns() {
+		// Turn test
+		testCube.performTurns("R2 D D Fi F2 F F F D2 R R Ri R");
+		assertTrue(testCube.isSolved());
 	}
 
 }
