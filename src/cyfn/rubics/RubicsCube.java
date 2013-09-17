@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import sun.security.util.Length;
+
 public class RubicsCube {
 
 	private static final Map<Side,Side[]> adjacentFaces = new HashMap<Side, Side[]>();
@@ -127,16 +129,64 @@ public class RubicsCube {
 	}
 	
 	public void performTurns(String turns) {
-		// TODO split a string into individual turns
+		performTurns(turns.split(" "));
 	}
 	
 	public void performTurns(String[] turns) {
-		// TODO construct an array of TurnInfo objects
-		// throw an rt exception if a turn cannot be parsed
+		
+		TurnInfo[] turnInfoArray = new TurnInfo[turns.length];
+		
+		for(int i = 0; i < turns.length; i++) {
+			if(!turns[i].matches("^[UDFBRL][2i]?$")) throw new IllegalArgumentException("Cannot perform " + turns[i] + " turn");
+			Side side = null;
+			Direction dir = null;
+			int depth = 0;	// TODO rewrite this to support 4x4+ cubes
+			
+			switch (turns[i].charAt(0)) {
+				case 'U': {
+					side = Side.UP;
+					break;
+				}
+				case 'D': {
+					side = Side.DOWN;
+					break;
+				}
+				case 'F': {
+					side = Side.FRONT;
+					break;
+				}
+				case 'B': {
+					side = Side.BACK;
+					break;
+				}
+				case 'R': {
+					side = Side.RIGHT;
+					break;
+				}
+				case 'L': {
+					side = Side.LEFT;
+				}
+			}
+			
+			if(turns[i].length() > 1) {
+				if(turns[i].charAt(1) == 'i') dir = Direction.COUNTERCLOCKWISE;
+				if(turns[i].charAt(1) == '2') dir = Direction.HALFTURN;
+			} else {
+				dir = Direction.CLOCKWISE;
+			}
+			if(side != null && dir != null)
+				turnInfoArray[i] = new TurnInfo(side, dir, depth);
+			else 
+				throw new IllegalArgumentException("Cannot perform " + turns[i] + " turn");
+		}
+		
+		performTurns(turnInfoArray);
 	}
 	
 	private void performTurns(TurnInfo[] turns) {
-		// TODO perform turns
+		for(TurnInfo turn : turns) {
+			turnFace(turn.turnedDirection, turn.turnedSide, turn.turnedDepth);
+		}
 	}
 }
 
